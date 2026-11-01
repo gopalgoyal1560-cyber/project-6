@@ -1,0 +1,123 @@
+2026-11-01 10:27:56,906 | INFO | <module> | Session started | python=3.14.2 | os=Windows-11-10.0.26300-SP0 | log_file=C:\Users\gopal\OneDrive\Desktop\python\project-6\logfiles\document_ingestion\layer_1_20261101_102756.log
+2026-11-01 10:27:56,906 | INFO | <module> | Loading embedding model: BAAI/bge-small-en-v1.5
+2026-11-01 10:27:56,908 | INFO | __init__ | No device provided, using cpu
+2026-11-01 10:27:57,165 | DEBUG | trace | connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=None socket_options=None
+2026-11-01 10:27:57,198 | DEBUG | trace | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001A1B9CA9010>
+2026-11-01 10:27:57,198 | DEBUG | trace | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001A1B9A45D00> server_hostname='huggingface.co' timeout=None
+2026-11-01 10:27:57,221 | DEBUG | trace | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001A1B9C02850>
+2026-11-01 10:27:57,222 | DEBUG | trace | send_request_headers.started request=<Request [b'GET']>
+2026-11-01 10:27:57,222 | DEBUG | trace | send_request_headers.complete
+2026-11-01 10:27:57,222 | DEBUG | trace | send_request_body.started request=<Request [b'GET']>
+2026-11-01 10:27:57,222 | DEBUG | trace | send_request_body.complete
+2026-11-01 10:27:57,222 | DEBUG | trace | receive_response_headers.started request=<Request [b'GET']>
+2026-11-01 10:27:57,475 | DEBUG | trace | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Date', b'Sun, 01 Nov 2026 04:57:56 GMT'), (b'content-encoding', b'gzip'), (b'ETag', b'W/"24656-bbuNXYYf4cIQrDsn//qAWOxkL9c"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6ae6c6d4-7b293304116785a35ecd216f;c2a7584c-b151-4c4e-9987-966278876c4f'), (b'RateLimit', b'"api";r=499;t=82'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'vary', b'Accept-Encoding'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash,RateLimit,RateLimit-Policy'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 1a13e7eab052ca1385ed4a99b26ac9e2.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'DEL51-P7'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'jzBzlfedzHWib5bAZ4xauOuMkymqlYFk-mEM0qrgphZj7XraVtfDKg=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+2026-11-01 10:27:57,476 | INFO | _send_single_request | HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-small-en-v1.5 "HTTP/1.1 200 OK"
+2026-11-01 10:27:57,476 | DEBUG | trace | receive_response_body.started request=<Request [b'GET']>
+2026-11-01 10:27:57,512 | DEBUG | trace | receive_response_body.complete
+2026-11-01 10:27:57,512 | DEBUG | trace | response_closed.started
+2026-11-01 10:27:57,512 | DEBUG | trace | response_closed.complete
+2026-11-01 10:27:57,520 | INFO | _load_modules | Loading SentenceTransformer model from BAAI/bge-small-en-v1.5.
+2026-11-01 10:27:58,031 | DEBUG | trace | send_request_headers.started request=<Request [b'GET']>
+2026-11-01 10:27:58,032 | DEBUG | trace | send_request_headers.complete
+2026-11-01 10:27:58,033 | DEBUG | trace | send_request_body.started request=<Request [b'GET']>
+2026-11-01 10:27:58,033 | DEBUG | trace | send_request_body.complete
+2026-11-01 10:27:58,034 | DEBUG | trace | receive_response_headers.started request=<Request [b'GET']>
+2026-11-01 10:27:58,268 | DEBUG | trace | receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Content-Length', b'64'), (b'Connection', b'keep-alive'), (b'Date', b'Sun, 01 Nov 2026 04:57:57 GMT'), (b'ETag', b'W/"40-09f9IAqP13xarAhQxFS2W8rvRkM"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6ae6c6d5-43903d8d55a868982ead253d;9f538d19-dce3-4469-935e-95c5c8f7ce6a'), (b'RateLimit', b'"api";r=498;t=81'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash,RateLimit,RateLimit-Policy'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'additional_chat_templates does not exist on "main"'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 1a13e7eab052ca1385ed4a99b26ac9e2.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'DEL51-P7'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'TYd3xyQGIPeD-yg_e0mmiP7hOq-y8LM3Skg_zdK2vugWj-FRWJYZxw=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+2026-11-01 10:27:58,269 | INFO | _send_single_request | HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-small-en-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-01 10:27:58,269 | DEBUG | trace | receive_response_body.started request=<Request [b'GET']>
+2026-11-01 10:27:58,269 | DEBUG | trace | receive_response_body.complete
+2026-11-01 10:27:58,269 | DEBUG | trace | response_closed.started
+2026-11-01 10:27:58,269 | DEBUG | trace | response_closed.complete
+2026-11-01 10:27:58,271 | DEBUG | trace | send_request_headers.started request=<Request [b'GET']>
+2026-11-01 10:27:58,271 | DEBUG | trace | send_request_headers.complete
+2026-11-01 10:27:58,271 | DEBUG | trace | send_request_body.started request=<Request [b'GET']>
+2026-11-01 10:27:58,271 | DEBUG | trace | send_request_body.complete
+2026-11-01 10:27:58,271 | DEBUG | trace | receive_response_headers.started request=<Request [b'GET']>
+2026-11-01 10:27:58,508 | DEBUG | trace | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Date', b'Sun, 01 Nov 2026 04:57:57 GMT'), (b'content-encoding', b'gzip'), (b'ETag', b'W/"8c2-+B357tswuSDPZQJ4PcEV7JZlfTw"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6ae6c6d5-59b325ce5cf3578d1f29c65d;728277d7-e455-42ca-901f-a1a5e8d5992b'), (b'RateLimit', b'"api";r=497;t=81'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'vary', b'Accept-Encoding'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash,RateLimit,RateLimit-Policy'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 1a13e7eab052ca1385ed4a99b26ac9e2.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'DEL51-P7'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'QCyY2lpgdu9KNyeen-sssksaT3gSc3ivI8jUiNFdMXe82mMs_BIWVg=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+2026-11-01 10:27:58,509 | INFO | _send_single_request | HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-small-en-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-01 10:27:58,509 | DEBUG | trace | receive_response_body.started request=<Request [b'GET']>
+2026-11-01 10:27:58,510 | DEBUG | trace | receive_response_body.complete
+2026-11-01 10:27:58,510 | DEBUG | trace | response_closed.started
+2026-11-01 10:27:58,510 | DEBUG | trace | response_closed.complete
+2026-11-01 10:27:58,561 | DEBUG | __init__ | Active modality config: {'text': {'method': 'forward', 'method_output_name': 'last_hidden_state'}}
+2026-11-01 10:27:58,564 | DEBUG | trace | send_request_headers.started request=<Request [b'HEAD']>
+2026-11-01 10:27:58,565 | DEBUG | trace | send_request_headers.complete
+2026-11-01 10:27:58,565 | DEBUG | trace | send_request_body.started request=<Request [b'HEAD']>
+2026-11-01 10:27:58,565 | DEBUG | trace | send_request_body.complete
+2026-11-01 10:27:58,565 | DEBUG | trace | receive_response_headers.started request=<Request [b'HEAD']>
+2026-11-01 10:27:58,807 | DEBUG | trace | receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'15'), (b'Connection', b'keep-alive'), (b'Date', b'Sun, 01 Nov 2026 04:57:57 GMT'), (b'ETag', b'W/"f-mY2VvLxuxB7KhsoOdQTlMTccuAQ"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6ae6c6d5-124d3ee3385c2dde6eed0743;ee34d2bb-e25c-4e1c-b465-63d44a14d7b8'), (b'RateLimit', b'"resolvers";r=2999;t=81'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash,RateLimit,RateLimit-Policy'), (b'X-Repo-Commit', b'5c38ec7c405ec4b44b94cc5a9bb96e735b38267a'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'MISS'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'Entry not found'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 1a13e7eab052ca1385ed4a99b26ac9e2.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'DEL51-P7'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'Pk9MBSm9uLIHax_COjkP0fiMl7w3rBNXrLYFzaaGVlJ9JXWS_2D-Yw=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+2026-11-01 10:27:58,807 | INFO | _send_single_request | HTTP Request: HEAD https://huggingface.co/BAAI/bge-small-en-v1.5/resolve/5c38ec7c405ec4b44b94cc5a9bb96e735b38267a/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-01 10:27:58,807 | DEBUG | trace | receive_response_body.started request=<Request [b'HEAD']>
+2026-11-01 10:27:58,808 | DEBUG | trace | receive_response_body.complete
+2026-11-01 10:27:58,808 | DEBUG | trace | response_closed.started
+2026-11-01 10:27:58,808 | DEBUG | trace | response_closed.complete
+2026-11-01 10:27:58,808 | WARNING | _warn_on_warning_headers | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-11-01 10:27:58,808 | DEBUG | load_file_path | Could not load 'config.json' from 'BAAI/bge-small-en-v1.5': 404 Client Error. (Request ID: Root=1-6ae6c6d5-124d3ee3385c2dde6eed0743;ee34d2bb-e25c-4e1c-b465-63d44a14d7b8)
+
+Entry Not Found for url: https://huggingface.co/BAAI/bge-small-en-v1.5/resolve/5c38ec7c405ec4b44b94cc5a9bb96e735b38267a/2_Normalize/config.json.
+2026-11-01 10:27:58,812 | INFO | <module> | Model loaded in 1.91s | embedding_dim=384 | max_seq_length=512
+2026-11-01 10:27:58,812 | INFO | layer_1 | layer_1 started | files=['C:\\Users\\gopal\\Downloads\\Evidence_Grounded_Research_Agent_Project_Brief.html']
+2026-11-01 10:27:58,812 | INFO | document_partition | Partitioning started | file_count=1
+2026-11-01 10:28:00,100 | DEBUG | from_bytes | Encoding detection: utf_8 is most likely the one.
+2026-11-01 10:28:00,176 | DETAIL | detail | Sentence does not exceed 3 word tokens, it will not count toward sentence count.
+Project Brief
+2026-11-01 10:28:00,177 | DETAIL | detail | Not narrative. Text exceeds cap ratio 0.5:
+
+Project Brief
+2026-11-01 10:28:00,726 | DETAIL | detail | Not narrative. Text exceeds cap ratio 0.5:
+
+Category: Applied AI / LLM Engineering / AI Systems
+2026-11-01 10:28:00,731 | DETAIL | detail | Not narrative. Text does not contain a verb:
+
+Include these question types:
+2026-11-01 10:28:01,040 | INFO | document_partition | Partitioned | file=C:\Users\gopal\Downloads\Evidence_Grounded_Research_Agent_Project_Brief.html | extension=.html | size_bytes=9692 | elements=43 | total_chars=4835 | categories={'UncategorizedText': 3, 'Title': 7, 'NarrativeText': 12, 'ListItem': 17, 'Table': 4} | time=2.23s
+2026-11-01 10:28:01,040 | INFO | document_partition | Partitioning finished | files_requested=1 | files_succeeded=1
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=13 | chars_after=13 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=32 | chars_after=36 | chars_removed=-4
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=134 | chars_after=134 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=51 | chars_after=51 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=25 | chars_after=25 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=140 | chars_after=140 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=46 | chars_after=46 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=87 | chars_after=87 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=67 | chars_after=67 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=53 | chars_after=53 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=50 | chars_after=50 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=58 | chars_after=58 | chars_removed=0
+2026-11-01 10:28:01,041 | DEBUG | document_cleaning | Cleaned text | chars_before=149 | chars_after=149 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=33 | chars_after=33 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=58 | chars_after=58 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=434 | chars_after=434 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=17 | chars_after=17 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=125 | chars_after=125 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=422 | chars_after=422 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=33 | chars_after=33 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=210 | chars_after=210 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=29 | chars_after=29 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=21 | chars_after=21 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=52 | chars_after=52 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=54 | chars_after=54 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=44 | chars_after=44 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=51 | chars_after=51 | chars_removed=0
+2026-11-01 10:28:01,042 | DEBUG | document_cleaning | Cleaned text | chars_before=148 | chars_after=148 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=380 | chars_after=380 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=141 | chars_after=141 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=163 | chars_after=163 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=36 | chars_after=36 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=635 | chars_after=635 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=196 | chars_after=196 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=24 | chars_after=24 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=56 | chars_after=56 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=49 | chars_after=49 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=47 | chars_after=47 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=57 | chars_after=57 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=55 | chars_after=55 | chars_removed=0
+2026-11-01 10:28:01,043 | DEBUG | document_cleaning | Cleaned text | chars_before=66 | chars_after=66 | chars_removed=0
+2026-11-01 10:28:01,044 | DEBUG | document_cleaning | Cleaned text | chars_before=181 | chars_after=181 | chars_removed=0
+2026-11-01 10:28:01,044 | DEBUG | document_cleaning | Cleaned text | chars_before=113 | chars_after=113 | chars_removed=0
+2026-11-01 10:28:01,044 | INFO | layer_1 | Cleaning summary | chars_before=4835 | chars_after=4839 | chars_removed=-4 | reduction=-0.08%
+2026-11-01 10:28:01,046 | INFO | return_chunks | Chunking done | chunk_groups=1 | total_chunks=14 | min_chars=93 | max_chars=496 | avg_chars=349.7
+2026-11-01 10:28:01,817 | INFO | generate_embendings | Embeddings done | embeddings=14 | model=BAAI/bge-small-en-v1.5 | time=0.77s
+2026-11-01 10:28:01,817 | INFO | layer_1 | layer_1 finished | documents=1 | chunk_groups=1 | embeddings=14 | total_time=3.00s
+2026-11-01 10:28:01,818 | DEBUG | trace | close.started
+2026-11-01 10:28:01,819 | DEBUG | trace | close.complete
