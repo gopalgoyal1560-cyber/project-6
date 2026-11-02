@@ -40,7 +40,6 @@ def create_tables(connection):
                     id UUID PRIMARY KEY,
                     filename TEXT,
                     title TEXT,
-                    author TEXT,
                     file_hash TEXT,
                     storage_path TEXT,
                     status TEXT,
@@ -112,26 +111,24 @@ def get_document_details(file_path, chunk_group):
             for el in originals:
                 if title is None and getattr(el, "category", None) == "Title" and getattr(el, "text", None):
                     title = el.text
-                if author is None:
-                    author = getattr(el.metadata, "author", None)
-            if title and author:
+            if title:
                 break
     except Exception as e:
         logger.exception(f"Error reading document details: {e}")
     if not title:
         title = os.path.splitext(filename)[0]
-    return filename, title, author
+    return filename, title
 
-def insert_document(connection, filename, title, author, file_hash, storage_path, status):
+def insert_document(connection, filename, title, file_hash, storage_path, status):
     try:
         document_id = str(uuid.uuid4())
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO documents (id, filename, title, author, file_hash, storage_path, status)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO documents (id, filename, title, file_hash, storage_path, status)
+                VALUES (%s, %s, %s, %s, %s, %s)
                 """,
-                (document_id, filename, title, author, file_hash, storage_path, status)
+                (document_id, filename, title, file_hash, storage_path, status)
             )
         connection.commit()
         logger.info(f"Document stored | document_id={document_id} | filename={filename} | status={status}")
@@ -179,10 +176,10 @@ def store_document(connection, file_path, chunk_group):
         if connection is None:
             logger.error(f"No database connection, skipping store | file={file_path}")
             return None, []
-        filename, title, author = get_document_details(file_path, chunk_group)
+        filename, title  = get_document_details(file_path, chunk_group)
         file_hash = generate_file_hash(file_path)
         storage_path = os.path.abspath(file_path)
-        document_id = insert_document(connection, filename, title, author, file_hash, storage_path, "processing")
+        document_id = insert_document(connection, filename, title, file_hash, storage_path, "processing")
         if document_id is None:
             return None, []
 
@@ -209,7 +206,7 @@ def store_document(connection, file_path, chunk_group):
 
         status = "completed" if failed == 0 else "partial"
         update_document_status(connection, document_id, status)
-        logger.info(f"Store summary | document_id={document_id} | stored={stored} | skipped_empty={skipped} | failed={failed} | has_author={author is not None} | has_hash={file_hash is not None}")
+        logger.info(f"Store summary | document_id={document_id} | stored={stored} | skipped_empty={skipped} | failed={failed} | has_hash={file_hash is not None}")
         return document_id, chunk_ids
     except Exception as e:
         print(f"Error storing document {file_path}: {e}")
