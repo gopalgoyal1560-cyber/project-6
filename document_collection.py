@@ -116,7 +116,7 @@ def return_chunks(elements:list):
             logger.info(f"Chunking done | chunk_groups={len(chunk)} | total_chunks={len(chunk_sizes)} | min_chars={min(chunk_sizes)} | max_chars={max(chunk_sizes)} | avg_chars={sum(chunk_sizes)/len(chunk_sizes):.1f}")
         else:
             logger.warning("Chunking produced no chunks")
-        return chunks
+        return chunk
     except Exception as e:
         print(f"Error chunking elements: {e}")
         logger.exception(f"Error chunking elements: {e}")
@@ -126,9 +126,8 @@ def generate_embendings(chunks:list):
     embeddings = []
     try:
         embed_start = time.time()
-        for chunk in chunks:
-            for ch in chunk:
-                embeddings.append(model.encode(ch.text, convert_to_numpy=False))
+        for ch in chunks:
+            embeddings.append(model.encode(ch.text, convert_to_numpy=False))
         logger.info(f"Embeddings done | embeddings={len(embeddings)} | model={EMBEDDING_MODEL_NAME} | time={time.time() - embed_start:.2f}s")
         return embeddings
     except Exception as e:
@@ -154,11 +153,11 @@ def layer_1(files:list):
                 total_after += len(el.text)
 
         logger.info(f"Cleaning summary | chars_before={total_before} | chars_after={total_after} | chars_removed={total_before - total_after} | reduction={((total_before - total_after) / total_before * 100) if total_before else 0:.2f}%")
+        embendings_list = []
         for e,f in zip(elements,files):
-            chunks = return_chunks(elements)
+            chunks = return_chunks(e)
             db.store_document(connection,f,chunks)
-
-        embendings_list = generate_embendings(chunks)
+            embendings_list.append(generate_embendings(chunks))
         logger.info(f"layer_1 finished | documents={len(elements)} | chunk_groups={len(chunks)} | embeddings={len(embendings_list)} | total_time={time.time() - layer_start:.2f}s")
         db.close_connection(connection)
         return elements,chunks,embendings_list
