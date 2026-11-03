@@ -19,6 +19,7 @@ import os
 import platform
 import re
 import time
+import database as db
 
 LOG_DIR = "logfiles/document_ingestion"
 os.makedirs(LOG_DIR, exist_ok=True)
@@ -108,21 +109,18 @@ def document_extraction(Text:str):
         return []
 
 def return_chunks(elements:list):
-    chunks = []
     try:
-        for element in elements:
-            for el in elements:
-                chunks.append(chunk_elements(element))
-        chunk_sizes = [len(ch.text) for chunk in chunks for ch in chunk]
+        chunk = chunk_elements(elements)
+        chunk_sizes = [len(ch.text) for ch in chunk]
         if chunk_sizes:
-            logger.info(f"Chunking done | chunk_groups={len(chunks)} | total_chunks={len(chunk_sizes)} | min_chars={min(chunk_sizes)} | max_chars={max(chunk_sizes)} | avg_chars={sum(chunk_sizes)/len(chunk_sizes):.1f}")
+            logger.info(f"Chunking done | chunk_groups={len(chunk)} | total_chunks={len(chunk_sizes)} | min_chars={min(chunk_sizes)} | max_chars={max(chunk_sizes)} | avg_chars={sum(chunk_sizes)/len(chunk_sizes):.1f}")
         else:
             logger.warning("Chunking produced no chunks")
         return chunks
     except Exception as e:
         print(f"Error chunking elements: {e}")
         logger.exception(f"Error chunking elements: {e}")
-        return chunks
+        return chunk
 
 def generate_embendings(chunks:list):
     embeddings = []
@@ -140,6 +138,8 @@ def generate_embendings(chunks:list):
         
 def layer_1(files:list):
     try:
+        connection = db.get_connection()
+        db.create_tables(connection)
         layer_start = time.time()
         logger.info(f"layer_1 started | files={files}")
         elements = document_partition(files)
@@ -154,10 +154,13 @@ def layer_1(files:list):
                 total_after += len(el.text)
 
         logger.info(f"Cleaning summary | chars_before={total_before} | chars_after={total_after} | chars_removed={total_before - total_after} | reduction={((total_before - total_after) / total_before * 100) if total_before else 0:.2f}%")
+        for e,f in zip(elements,files):
+            chunks = return_chunks(elements)
+            db.store_document(connection,f,chunks)
 
-        chunks = return_chunks(elements)
         embendings_list = generate_embendings(chunks)
         logger.info(f"layer_1 finished | documents={len(elements)} | chunk_groups={len(chunks)} | embeddings={len(embendings_list)} | total_time={time.time() - layer_start:.2f}s")
+        db.close_connection(connection)
         return elements,chunks,embendings_list
     except Exception as e:
         print(f"Error in layer_1: {e}")
