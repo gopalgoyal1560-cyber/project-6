@@ -6,6 +6,7 @@ import logging
 import psycopg2
 from psycopg2.extras import Json
 from dotenv import load_dotenv
+from pinecone import Pinecone
 
 load_dotenv()
 logger = logging.getLogger("project-6")
@@ -188,6 +189,7 @@ def store_document(connection, file_path, chunk_group):
         skipped = 0
         failed = 0
         offset = 0
+        texts = []
         for index, chunk in enumerate(chunk_group):
             text = getattr(chunk, "text", None) or ""
             if not text.strip():
@@ -200,15 +202,36 @@ def store_document(connection, file_path, chunk_group):
             chunk_id = insert_chunk(connection, document_id, index, text, page_start, page_end, char_start, char_end, metadata)
             if chunk_id:
                 chunk_ids.append(chunk_id)
+                texts.append(text)
                 stored += 1
             else:
                 failed += 1
 
-        status = "completed" if failed == 0 else "partial"
-        update_document_status(connection, document_id, status)
         logger.info(f"Store summary | document_id={document_id} | stored={stored} | skipped_empty={skipped} | failed={failed} | has_hash={file_hash is not None}")
-        return document_id, chunk_ids
+        return document_id, chunk_ids, text
     except Exception as e:
         print(f"Error storing document {file_path}: {e}")
         logger.exception(f"Error storing document {file_path}: {e}")
         return None, []
+
+def get_pinecone_index():
+    api_key = os.getenv("PDATABASE_URL")
+    index_name = os.getenv("INDEX")
+    if not api_key or not index_name:
+        raise ValueError("PDATABASE_URL or INDEX is not set in .env")
+    index = Pinecone(api_key=api_key).Index(index_name)
+    index.describe_index_stats()  
+    logger.info(f"Pinecone connection established | index={index_name}")
+    return index
+
+def store_embeddings(index, chunk_ids, embeddings, batch_size=100):
+    if len(chunk_ids) != len(embeddings):
+        raise ValueError(f"Length mismatch | chunk_ids={len(chunk_ids)} embeddings={len(embeddings)}")
+    vectors = [
+        {"id": str(cid), "values": emb.tolist() if hasattr(emb, "tolist") else list(emb)}
+        for cid, emb in zip(chunk_ids, embeddings)
+    ]
+    for start in range(0, len(vectors), batch_size):
+        index.upsert(vectors=vectors[start:start + batch_size])
+    logger.info(f"Pinecone upsert complete | vectors={len(vectors)}")
+    return len(vectors)
