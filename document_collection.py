@@ -116,11 +116,13 @@ def return_chunks(elements:list):
             logger.info(f"Chunking done | chunk_groups={len(chunk)} | total_chunks={len(chunk_sizes)} | min_chars={min(chunk_sizes)} | max_chars={max(chunk_sizes)} | avg_chars={sum(chunk_sizes)/len(chunk_sizes):.1f}")
         else:
             logger.warning("Chunking produced no chunks")
+        if not chunk:
+            return ""
         return chunk
     except Exception as e:
         print(f"Error chunking elements: {e}")
         logger.exception(f"Error chunking elements: {e}")
-        return chunk
+        return ""
 
 def generate_embendings(chunks:list):
     embeddings = []
@@ -136,13 +138,15 @@ def generate_embendings(chunks:list):
         return embeddings
         
 def layer_1(files:list):
+    connection = None
     try:
         connection = db.get_connection()
         db.create_tables(connection)
+        index = db.get_pinecone_index()
         layer_start = time.time()
         logger.info(f"layer_1 started | files={files}")
         elements = document_partition(files)
-        
+
         total_before = 0
         total_after = 0
         for element in elements:
@@ -153,18 +157,34 @@ def layer_1(files:list):
                 total_after += len(el.text)
 
         logger.info(f"Cleaning summary | chars_before={total_before} | chars_after={total_after} | chars_removed={total_before - total_after} | reduction={((total_before - total_after) / total_before * 100) if total_before else 0:.2f}%")
+
+        all_chunks = []
         embendings_list = []
-        for e,f in zip(elements,files):
+        for e, f in zip(elements, files):
             chunks = return_chunks(e)
-            db.store_document(connection,f,chunks)
-            embendings_list.append(generate_embendings(chunks))
-        logger.info(f"layer_1 finished | documents={len(elements)} | chunk_groups={len(chunks)} | embeddings={len(embendings_list)} | total_time={time.time() - layer_start:.2f}s")
-        db.close_connection(connection)
-        return elements,chunks,embendings_list
+            if not chunks:
+                continue
+            document_id, chunk_ids, texts = db.store_document(connection, f, chunks)
+            if not document_id or not chunk_ids:
+                continue
+            try:
+                embeddings = generate_embendings(texts)
+                db.store_embeddings(index, chunk_ids, embeddings)
+                db.update_document_status(connection, document_id, "completed")
+                all_chunks.append(chunks)
+                embendings_list.append(embeddings)
+            except Exception:
+                logger.exception(f"Embedding/upsert failed | document_id={document_id}")
+                db.update_document_status(connection, document_id, "failed")
+
+        logger.info(f"layer_1 finished | documents={len(elements)} | indexed={len(embendings_list)} | total_time={time.time() - layer_start:.2f}s")
+        return elements, all_chunks, embendings_list
     except Exception as e:
         print(f"Error in layer_1: {e}")
         logger.exception(f"Error in layer_1: {e}")
-        return [],[],[]
+        return [], [], []
+    finally:
+        db.close_connection(connection)
 
 if __name__ == "__main__":
     try:
